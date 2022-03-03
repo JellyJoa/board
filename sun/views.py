@@ -9,3 +9,6 @@ def b_tip(request):
     }
 
     return render(request, 'tip.html', context)
+
+def create(request):
+    return render(request, 'create.html')
