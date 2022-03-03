@@ -10,16 +10,20 @@
 <main class="container">
   <div class="bg-light p-5 rounded">
     <h2>상세보기</h2>
-    <br>
+
     글번호 : {{ detail_form.initial.id }}
-    <br>
+    <br><br>
     <div class="m-1"></div>
 
-    {% bootstrap_form my_form %}
-
-    <button type="button" class="btn btn-danger" onclick="#">삭제</button>
-    <button type="button" class="btn btn-secondary" onclick="#">수정</button>
-    <button type="button" class="btn btn-secondary" onclick="list_func()">목록</button>
+    {% bootstrap_form detail_form %}
+    <br><br>
+    <button type="button" class="btn btn-outline-danger" onclick="like_post()">좋아요</button>
+{#      <br>#}
+    <button type="button" class="btn btn-outline-dark" onclick="#">수정</button>
+{#      <br>#}
+    <button type="button" class="btn btn-outline-dark" onclick="delete_post()">삭제</button>
+{#      <br>#}
+    <button type="button" class="btn btn-outline-dark" onclick="list_func()">목록</button>
 
   </div>
 </main>

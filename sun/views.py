@@ -4,14 +4,19 @@ from sun.form import BoardForm, BoardDetailForm
 # Create your views here.
 
 def b_tip(request):
-    if request.user.is_authenticated:
-        posts = Board.objects.all().order_by('-id')
-        context = {
-            'posts' : posts
-        }
-        return render(request, 'tip.html', context)
-    else:
-        return redirect('home')
+    # if request.user.is_authenticated:
+    #     posts = Board.objects.all().order_by('-id')
+    #     context = {
+    #         'posts': posts
+    #     }
+    #     return render(request, 'tip.html', context)
+    # else:
+    #     return redirect('home')
+    posts = Board.objects.all().order_by('-id')
+    context = {
+        'posts': posts
+    }
+    return render(request, 'tip.html', context)
 
 def create(request):
     if request.method == 'GET':
