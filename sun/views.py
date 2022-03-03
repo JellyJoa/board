@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from sun.models import Board
 from sun.form import BoardForm, BoardDetailForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def b_tip(request):
@@ -41,3 +42,22 @@ def b_detail(request, board_id):
         'comments': comments
     }
     return render(request, 'detail.html', context)
+
+def b_delete(request):
+    post_id = request.GET['post_id']
+    post = get_object_or_404(Board, pk=post_id)
+    post.delete()
+    return redirect('sun:b_tip')
+
+def b_like(request):
+    post_id = request.GET['post_id']
+    post = get_object_or_404(Board, pk=post_id)
+    post.b_like_count += 1
+    post.save()
+
+    board_detail_form = BoardDetailForm(instance=post)
+
+    context = {
+        'detail_form': board_detail_form
+    }
+    return render(request, 'sun/detail.html', context)
