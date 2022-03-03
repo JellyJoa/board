@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sun.apps.SunConfig'
+    'sun.apps.SunConfig',
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [

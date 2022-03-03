@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 
 {% block html_header %}
 <script src="/static/js/Myfunctions.js"></script>
@@ -12,30 +12,17 @@
     <h2>새글 작성</h2>
     <div class="m-1"></div>
 
-    <table class="table table-hover">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col"> </th>
-                <th scope="col">제목</th>
-                <th scope="col">작성자</th>
-                <th scope="col">작성일</th>
-                <th scope="col">댓글 수</th>
-                <th scope="col">좋아요 수</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.id }}</td>
-                <td>{{ post.b_title }}</td>
-                <td>{{ post.b_author }}</td>
-                <td>{{ post.b_date }}</td>
-                <td>{{ post.b_comment_count }}</td>
-                <td>{{ post.b_like_count }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <form action="/sun/create/" method="post">
+        {% csrf_token %}
+        {% bootstrap_form my_form %}
+        <br>
+        <button type="submit"
+                class="btn btn-primary">등록</button>
+        <button type="button"
+                class="btn btn-secondary"
+                onclick="list_func()">목록</button>
+    </form>
+
   </div>
 </main>
 {% endblock %}

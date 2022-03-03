@@ -11,7 +11,7 @@
   <div class="bg-light p-5 rounded">
     <h2>나만의 tip</h2>
     <p class="lead">반려동물을 키우면서 생긴 나만의 노하우를 공유해요!</p>
-    <a class="btn btn-lg btn-info" href="/sun/create/" role="button">새글작성 »</a>
+    <a class="btn btn-lg btn-info" href="{% url 'create' %}" role="button">새글작성 »</a>
     <div class="m-5"></div>
 
     <table class="table table-hover">
@@ -29,7 +29,7 @@
         {% for post in posts %}
             <tr>
                 <td>{{ post.id }}</td>
-                <td>{{ post.b_title }}</td>
+                <td><a href="/sun/{{ post.id }}/detail/">{{ post.b_title }}</a></td>
                 <td>{{ post.b_author }}</td>
                 <td>{{ post.b_date }}</td>
                 <td>{{ post.b_comment_count }}</td>
