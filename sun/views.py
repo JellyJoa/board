@@ -59,3 +59,7 @@ def b_like(request, board_id):
         'detail_form': board_detail_form
     }
     return render(request, 'detail.html', context)
+
+def adopt(request):
+
+    return render(request, 'adopt.html')
