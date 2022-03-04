@@ -11,5 +11,5 @@ urlpatterns = [
     path('<int:board_id>/detail/', views.b_detail, name='b_detail'),
     path('<int:board_id>/delete/', views.b_delete, name='b_delete'),
     path('<int:board_id>/like/', views.b_like, name='b_like'),
-
+    path('adopt/', TemplateView.as_view(templates_name='sun/adopt.html'), name='adopt'),
 ]
