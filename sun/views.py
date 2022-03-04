@@ -43,15 +43,13 @@ def b_detail(request, board_id):
     }
     return render(request, 'detail.html', context)
 
-def b_delete(request):
-    post_id = request.GET['post_id']
-    post = get_object_or_404(Board, pk=post_id)
+def b_delete(request, board_id):
+    post = get_object_or_404(Board, pk=board_id)
     post.delete()
     return redirect('sun:b_tip')
 
-def b_like(request):
-    post_id = request.GET['post_id']
-    post = get_object_or_404(Board, pk=post_id)
+def b_like(request, board_id):
+    post = get_object_or_404(Board, pk=board_id)
     post.b_like_count += 1
     post.save()
 
@@ -60,4 +58,4 @@ def b_like(request):
     context = {
         'detail_form': board_detail_form
     }
-    return render(request, 'sun/detail.html', context)
+    return render(request, 'detail.html', context)
