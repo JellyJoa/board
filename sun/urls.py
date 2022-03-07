@@ -12,5 +12,6 @@ urlpatterns = [
     path('<int:board_id>/delete/', views.b_delete, name='b_delete'),
     path('<int:board_id>/like/', views.b_like, name='b_like'),
     path('createComment/', views.c_create, name='c_create'),
+    path('commentDelete/', views.c_delete, name='c_delete'),
     path('adopt/', TemplateView.as_view(template_name='adopt.html'), name='adopt'),
 ]

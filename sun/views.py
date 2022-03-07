@@ -80,6 +80,12 @@ def c_create(request):
         'c_content': comment.c_content
     }, json_dumps_params={'ensure_ascii': True})
 
+def c_delete(request):
+    comment = get_object_or_404(Comment, pk=request.GET['comment_id'])
+    comment.delete()
+
+    return JsonResponse({}, json_dumps_params={'ensure_ascii': True})
+
 # def adopt(request):
 #     url = ''
 #     res = requests.get(url)

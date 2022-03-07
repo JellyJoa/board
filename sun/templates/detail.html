@@ -11,7 +11,7 @@
   <div class="bg-light p-5 rounded">
     <h2>상세보기</h2>
 
-    글번호 : {{ detail_form.initial.id }}
+      글번호 : <span id="post_id">{{ detail_form.initial.id }}</span>
     <br><br>
     <div class="m-1"></div>
 
@@ -34,7 +34,7 @@
         <label for="c_content">내용</label>
         <input type="text" class="form-control w-50" id="c_content">
 
-        <button type="button" class="btn btn-info" onclick="create_comment()">댓글 등록</button>
+        <button type="button" class="btn btn-outline-info" onclick="create_comment()">댓글 등록</button>
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
