@@ -13,6 +13,55 @@ function like_post(id) {
     document.location.href = '/sun/'+id+'/like/'
 }
 
+function create_comment(){
+    $.ajax({
+        async: true,
+        url: '/sun/createComment/',
+        type: 'GET',
+        data: {
+            board_id: $('#post_id').text(),
+            comment_author: $('#c_name').val(),
+            comment_content: $('#c_content').val()
+        },
+        dataType: 'json',
+        timeout:3000,
+        success: function (result){
+            let tr = $('<tr></tr>').attr('id', 'comment_'+result['c_id'])
+            let author_td = $('<td></td>').text(result['c_author'])
+            let content_td = $('<td></td>').text(result['c_content'])
+            let btn_td = $('<td></td>')
+            let btn = $('<button></button>').text('삭제').addClass('btn btn-outline-danger')
+            btn.on('click', function (){
+                $.ajax({
+                    async: true,
+                    url: 'sun/commentDelete/',
+                    type: 'GET',
+                    data: {
+                        comment_id: result['c_id']
+                    },
+                    dataType: 'json',
+                    timeout: 3000,
+                    success: function (){
+                        $('#comment_'+result['c_id']).remove()
+                    },
+                    error: function (){
+                        alert('Error1')
+                    }
+                })
+            })
+            btn_td.append(btn)
+            tr.append(author_td)
+            tr.append(content_td)
+            tr.append(btn_td)
+            $('tbody').prepend(tr)
+        },
+        error: function (){
+            alert('Error2')
+        }
+    })
+}
+
+
 function animal_list() {
     let my_date = $('#searchDate').val()
 
@@ -26,10 +75,10 @@ function animal_list() {
 
         $.ajax({
             async : true,
-            url: 'http://openapi.animal.go.kr:80/openapi/service/rest/abandonmentPublicSrvc?_wadl&type=xml',
+            url: 'http://openapi.animal.go.kr:80/openapi/service/rest/abandonmentPublicSrvc?_wadl&type=json',
             data : {
-                key : '5b015a49a0f1ae63cd63b5a1ba139a86',
-                targetDt : modified_date
+                serviceKey : 'NVk7m8SbanZW%2BtI9xjXbAL5fJqD56%2F3dzja%2FWCrt7VbEhAMec8CZLx91G%2FsZSLFEB6J6wqg8j252hdJ%2F76RJYA%3D%3D',
+                bgnde : modified_date
             },
             method : 'GET',
             timeout : 3000,
@@ -49,28 +98,10 @@ function animal_list() {
                     let imgTd = $('<td></td>>')
                     let searchTitle = result['boxOfficeResult']['dailyBoxOfficeList'][i]['movieNm'] + " 포스터 사진"
                     let img = $('<img />')
+                    let imgUrl = result['']
+                    img.attr('src', imgUrl)
                     imgTd.append(img)
-                    $.ajax({
-                        async: true,
-                        url: 'https://dapi.kakao.com/v2/search/image',
-                        method: 'GET',
-                        headers: {
-                            Authorization: "KakaoAK " + 'cf0517506a09c39e970bb3cef7b670f9'
-                        },
-                        data: {
-                            query: searchTitle
-                        },
-                        timeout: 4000,
-                        dataType: 'json',
-                        success: function(result) {
-                            $('#myDiv').empty()
-                            let imgUrl = result['documents'][0]['thumbnail_url']
-                            img.attr('src',imgUrl)
-                        },
-                        error: function() {
-                            alert('먼가 이상해요!')
-                        }
-                    })
+
                     let titleTd = $('<td></td>').text(result['boxOfficeResult']['dailyBoxOfficeList'][i]['movieNm'])
                     let openTd = $('<td></td>').text(result['boxOfficeResult']['dailyBoxOfficeList'][i]['openDt'])
                     let detailTd = $('<td></td>')

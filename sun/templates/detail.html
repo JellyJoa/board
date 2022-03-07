@@ -26,5 +26,33 @@
     <button type="button" class="btn btn-outline-dark" onclick="list_func()">목록</button>
 
   </div>
+
+    <div class="container">
+        <h3>Comment</h3>
+        <label for="c_name">이름</label>
+        <input type="text" class="form-control w-25" id="c_name">
+        <label for="c_content">내용</label>
+        <input type="text" class="form-control w-50" id="c_content">
+
+        <button type="button" class="btn btn-info" onclick="create_comment()">댓글 등록</button>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">댓글 작성자</th>
+                    <th scope="col">댓글 내용</th>
+                    <th scope="col">삭제</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for i in comments %}
+                <tr>
+                    <td>{{ i.c_author }}</td>
+                    <td>{{ i.c_content }}</td>
+                    <td><button class="btn btn-outline-danger">삭제</button></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </main>
 {% endblock %}

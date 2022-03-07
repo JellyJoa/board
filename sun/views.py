@@ -1,7 +1,10 @@
-from django.shortcuts import render, redirect, get_object_or_404, reverse
-from sun.models import Board
+from django.shortcuts import render, redirect, get_object_or_404
+from sun.models import Board, Comment
 from sun.form import BoardForm, BoardDetailForm
-from django.http import HttpResponseRedirect
+from django.http import JsonResponse
+# import requests
+# import json
+# from django.http import HttpResponseRedirect
 # Create your views here.
 
 def b_tip(request):
@@ -60,6 +63,28 @@ def b_like(request, board_id):
     }
     return render(request, 'detail.html', context)
 
-def adopt(request):
+def c_create(request):
+    comment = Comment()
+    comment.c_author = request.GET['comment_author']
+    comment.c_content = request.GET['comment_content']
+    comment.board_id = request.GET['board_id']
+    comment.save()
 
-    return render(request, 'adopt.html')
+    post = get_object_or_404(Board, pk=request.GET['board_id'])
+    post.b_comment_count += 1
+    post.save()
+
+    return JsonResponse({
+        'c_id': comment.id,
+        'c_author': comment.c_author,
+        'c_content': comment.c_content
+    }, json_dumps_params={'ensure_ascii': True})
+
+# def adopt(request):
+#     url = ''
+#     res = requests.get(url)
+#     text = res.text
+#
+#     d = json.loads(text)
+#
+#     return render(request, 'adopt.html')

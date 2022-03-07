@@ -1,7 +1,9 @@
 import requests
+import json
 
-url = 'http://openapi.animal.go.kr/openapi/service/rest/abandonmentPublicSrvc/sido'
-params ={'serviceKey' : '서비스키' }
+url = ''
+res = requests.get(url)
+text = res.text
 
-response = requests.get(url, params=params)
-print(response.content)
+d = json.loads(text)
+print(d)
