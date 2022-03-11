@@ -63,9 +63,11 @@ def b_edit(request, board_id):
             board_form.save()
             return redirect('/sun/'+ str(board_id) +'/detail/')
     else:
-        board_form = BoardForm()
+        board_form = BoardForm(instance=post)
         context = {
-            'board_form': board_form
+            'board_form': board_form,
+            'writing': True,
+            'now': 'edit'
         }
         return render(request, 'edit.html', context)
 
