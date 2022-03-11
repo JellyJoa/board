@@ -51,6 +51,24 @@ def b_delete(request, board_id):
     post.delete()
     return redirect('sun:b_tip')
 
+def b_edit(request, board_id):
+    post = get_object_or_404(Board, pk=board_id)
+    if request.method == 'POST':
+        board_form = BoardForm(request.POST, request.FILES)
+        if board_form.is_valid():
+            print(board_form.cleaned_data)
+            post.b_title = board_form.cleaned_data['b_title']
+            post.b_author = board_form.cleaned_data['b_author']
+            post.b_content = board_form.cleaned_data['b_content']
+            board_form.save()
+            return redirect('/sun/'+ str(board_id) +'/detail/')
+    else:
+        board_form = BoardForm()
+        context = {
+            'board_form': board_form
+        }
+        return render(request, 'edit.html', context)
+
 def b_like(request, board_id):
     post = get_object_or_404(Board, pk=board_id)
     post.b_like_count += 1
@@ -67,6 +85,7 @@ def c_create(request):
     comment = Comment()
     comment.c_author = request.GET['comment_author']
     comment.c_content = request.GET['comment_content']
+    comment.c_date = request.GET['comment_date']
     comment.board_id = request.GET['board_id']
     comment.save()
 
@@ -77,12 +96,17 @@ def c_create(request):
     return JsonResponse({
         'c_id': comment.id,
         'c_author': comment.c_author,
-        'c_content': comment.c_content
+        'c_content': comment.c_content,
+        'c_date': comment.c_date
     }, json_dumps_params={'ensure_ascii': True})
 
 def c_delete(request):
     comment = get_object_or_404(Comment, pk=request.GET['comment_id'])
     comment.delete()
+
+    post = get_object_or_404(Board, pk=request.GET['board_id'])
+    post.b_comment_count -= 1
+    post.save()
 
     return JsonResponse({}, json_dumps_params={'ensure_ascii': True})
 

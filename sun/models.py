@@ -16,6 +16,7 @@ class Board(models.Model):
 class Comment(models.Model):
     c_author = models.CharField(max_length=20)
     c_content = models.CharField(max_length=200)
+    c_date = models.DateTimeField(auto_now=True)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
 
     def __str__(self):

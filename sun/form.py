@@ -1,5 +1,5 @@
 from django import forms
-from sun.models import Board
+from sun.models import Board, Comment
 
 class BoardForm(forms.ModelForm):
     class Meta:
@@ -72,3 +72,4 @@ class BoardDetailForm(forms.ModelForm):
                 }
             )
         }
+

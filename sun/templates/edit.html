@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block html_header %}
+<script src="/static/js/Myfunctions.js"></script>
+{% endblock %}
+
+
+{% block html_body %}
+<main class="container">
+  <div class="bg-light p-5 rounded">
+    <h2>글 수정</h2>
+    <div class="m-1"></div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {% bootstrap_form my_form %}
+        <br>
+        <button type="submit"
+                class="btn btn-primary">등록</button>
+        <button type="button"
+                class="btn btn-secondary"
+                onclick="list_func()">목록</button>
+    </form>
+
+  </div>
+</main>
+{% endblock %}

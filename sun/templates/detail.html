@@ -19,7 +19,7 @@
     <br><br>
     <button type="button" class="btn btn-outline-danger" onclick="like_post({{ detail_form.initial.id }})">좋아요</button>
 {#      <br>#}
-    <button type="button" class="btn btn-outline-dark" onclick="#">수정</button>
+    <button type="button" class="btn btn-outline-dark" onclick="edit_post({{ detail_form.initial.id }})">수정</button>
 {#      <br>#}
     <button type="button" class="btn btn-outline-dark" onclick="delete_post({{ detail_form.initial.id }})">삭제</button>
 {#      <br>#}
@@ -40,6 +40,7 @@
                 <tr>
                     <th scope="col">댓글 작성자</th>
                     <th scope="col">댓글 내용</th>
+                    <th scope="col"></th>
                     <th scope="col">삭제</th>
                 </tr>
             </thead>
@@ -48,7 +49,8 @@
                 <tr>
                     <td>{{ i.c_author }}</td>
                     <td>{{ i.c_content }}</td>
-                    <td><button class="btn btn-outline-danger">삭제</button></td>
+                    <td>{{ i.c_date }}</td>
+                    <td><button class="btn btn-outline-danger" onclick="delete_comment('{{ i.id }}')">삭제</button></td>
                 </tr>
             {% endfor %}
             </tbody>
