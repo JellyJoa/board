@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap4%}
+
+{% block html_headr %}
+<link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block html_body %}
+<main class="form-signin">
+  <form action="{% url 'users:signup' %}" method="post">
+      {% csrf_token %}
+{#    <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">#}
+    <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
+      <label for="floatingPassword">사용자 이름</label>
+    </div>
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email">
+      <label for="floatingInput">이메일 주소</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+      <label for="floatingPassword">비밀번호</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="re-password">
+      <label for="floatingPassword">비밀번호</label>
+    </div>
+
+    <button id="loginButton" class="w-100 btn btn-lg btn-outline-primary" type="submit" value="가입하기">가입하기</button>
+
+    <footer class="joinSite">
+        <p class="join">계정이 있으시면 <button class="btn btn-outline-secondary" href="{% url 'login' %}">로그인</button></p>
+    </footer>
+  </form>
+</main>
+{% endblock %}

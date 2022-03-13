@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap4%}
+
+{% block html_headr %}
+<link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block html_body %}
+<main class="form-signin">
+  <form action="/users/login/" method="post">
+      {% csrf_token %}
+{#    <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">#}
+    <h1 class="h3 mb-3 fw-normal">로그인</h1>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="floatingInput" placeholder="사용자 이름 또는 이메일" name="username">
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호" name="password">
+    </div>
+    <button id="loginButton" class="w-100 btn btn-lg btn-outline-primary" type="submit">로그인</button>
+
+    <footer class="joinSite">
+        <p class="join">계정이 없으시면 <button class="btn btn-outline-secondary" href="{% url 'users:signup' %}">회원가입</button></p>
+    </footer>
+  </form>
+</main>
+{% endblock %}

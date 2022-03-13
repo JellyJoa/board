@@ -2,10 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from sun.models import Board, Comment
 from sun.form import BoardForm, BoardDetailForm
 from django.http import JsonResponse
-# import requests
-# import json
-# from django.http import HttpResponseRedirect
-# Create your views here.
+
 
 def b_tip(request):
     # if request.user.is_authenticated:
@@ -54,11 +51,10 @@ def b_delete(request, board_id):
 def b_edit(request, board_id):
     post = get_object_or_404(Board, pk=board_id)
     if request.method == 'POST':
-        board_form = BoardForm(request.POST, request.FILES)
+        board_form = BoardForm(request.POST, instance=post)
         if board_form.is_valid():
-            print(board_form.cleaned_data)
+            post = board_form.save(commit=False)
             post.b_title = board_form.cleaned_data['b_title']
-            post.b_author = board_form.cleaned_data['b_author']
             post.b_content = board_form.cleaned_data['b_content']
             board_form.save()
             return redirect('/sun/'+ str(board_id) +'/detail/')
@@ -66,8 +62,6 @@ def b_edit(request, board_id):
         board_form = BoardForm(instance=post)
         context = {
             'board_form': board_form,
-            'writing': True,
-            'now': 'edit'
         }
         return render(request, 'edit.html', context)
 

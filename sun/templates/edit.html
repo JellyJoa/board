@@ -14,7 +14,7 @@
 
     <form method="POST">
         {% csrf_token %}
-        {% bootstrap_form my_form %}
+        {{board_form.as_p}}
         <br>
         <button type="submit"
                 class="btn btn-primary">등록</button>
