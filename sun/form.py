@@ -4,7 +4,7 @@ from sun.models import Board, Comment
 class BoardForm(forms.ModelForm):
     class Meta:
         model = Board
-        fields = ['b_title', 'b_author', 'b_content']
+        fields = ['b_title', 'b_content']
         labels = {
             'b_title': '제목',
             'b_author': '작성자',

@@ -1,18 +1,14 @@
+import datetime
+
 from django.shortcuts import render, redirect, get_object_or_404
-from sun.models import Board, Comment
-from sun.form import BoardForm, BoardDetailForm
+from .models import Board, Comment
+from .form import *
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url='/users/login/')
 def b_tip(request):
-    # if request.user.is_authenticated:
-    #     posts = Board.objects.all().order_by('-id')
-    #     context = {
-    #         'posts': posts
-    #     }
-    #     return render(request, 'tip.html', context)
-    # else:
-    #     return redirect('home')
     posts = Board.objects.all().order_by('-id')
     context = {
         'posts': posts
@@ -29,8 +25,10 @@ def create(request):
     else:
         board_form = BoardForm(request.POST)
         if board_form.is_valid():
-            board_form.save()
-
+            user = request.user
+            new_post = board_form.save(commit=False)
+            new_post.b_author = user
+            new_post.save()
             return redirect('sun:b_tip')
 
 def b_detail(request, board_id):
@@ -77,26 +75,26 @@ def b_like(request, board_id):
     }
     return render(request, 'detail.html', context)
 
-def c_create(request):
+def create_comment(request, board_id):
     comment = Comment()
     comment.c_author = request.GET['comment_author']
     comment.c_content = request.GET['comment_content']
-    comment.c_date = request.GET['comment_date']
+    # comment.c_date = request.GET[datetime.datetime]
     comment.board_id = request.GET['board_id']
     comment.save()
-
-    post = get_object_or_404(Board, pk=request.GET['board_id'])
-    post.b_comment_count += 1
-    post.save()
+    #
+    # post = get_object_or_404(Board, pk=request.GET['board_id'])
+    # post.b_comment_count += 1
+    # post.save()
 
     return JsonResponse({
         'c_id': comment.id,
         'c_author': comment.c_author,
         'c_content': comment.c_content,
-        'c_date': comment.c_date
+        # 'c_date': comment.c_date
     }, json_dumps_params={'ensure_ascii': True})
 
-def c_delete(request):
+def delete_comment(request):
     comment = get_object_or_404(Comment, pk=request.GET['comment_id'])
     comment.delete()
 

@@ -17,22 +17,21 @@
 
     {% bootstrap_form detail_form %}
     <br><br>
-    <button type="button" class="btn btn-outline-danger" onclick="like_post({{ detail_form.initial.id }})">좋아요</button>
-{#      <br>#}
-    <button type="button" class="btn btn-outline-dark" onclick="edit_post({{ detail_form.initial.id }})">수정</button>
-{#      <br>#}
-    <button type="button" class="btn btn-outline-dark" onclick="delete_post({{ detail_form.initial.id }})">삭제</button>
-{#      <br>#}
-    <button type="button" class="btn btn-outline-dark" onclick="list_func()">목록</button>
 
+    <button type="button" class="btn btn-outline-danger" onclick="like_post({{ detail_form.initial.id }})">좋아요</button>
+    <button type="button" class="btn btn-outline-dark" onclick="edit_post({{ detail_form.initial.id }})">수정</button>
+    <button type="button" class="btn btn-outline-dark" onclick="delete_post({{ detail_form.initial.id }})">삭제</button>
+    <button type="button" class="btn btn-outline-dark" onclick="list_func()">목록</button>
   </div>
 
     <div class="container">
-        <h3>Comment</h3>
+        <h3>댓글</h3>
         <label for="c_name">이름</label>
         <input type="text" class="form-control w-25" id="c_name">
+    <br>
         <label for="c_content">내용</label>
         <input type="text" class="form-control w-50" id="c_content">
+    <br>
 
         <button type="button" class="btn btn-outline-info" onclick="create_comment()">댓글 등록</button>
         <table class="table table-hover">
@@ -40,17 +39,15 @@
                 <tr>
                     <th scope="col">댓글 작성자</th>
                     <th scope="col">댓글 내용</th>
-                    <th scope="col"></th>
                     <th scope="col">삭제</th>
                 </tr>
             </thead>
             <tbody>
-            {% for i in comments %}
+            {% for comment in comments %}
                 <tr>
-                    <td>{{ i.c_author }}</td>
-                    <td>{{ i.c_content }}</td>
-                    <td>{{ i.c_date }}</td>
-                    <td><button class="btn btn-outline-danger" onclick="delete_comment('{{ i.id }}')">삭제</button></td>
+                    <td>{{ comment.c_author }}</td>
+                    <td>{{ comment.c_content }}</td>
+                    <td><button class="btn btn-outline-danger" onclick="delete_comment('{{ comment.id }}')">삭제</button></td>
                 </tr>
             {% endfor %}
             </tbody>

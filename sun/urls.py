@@ -12,7 +12,7 @@ urlpatterns = [
     path('<int:board_id>/delete/', views.b_delete, name='b_delete'),
     path('<int:board_id>/edit/', views.b_edit, name='b_edit'),
     path('<int:board_id>/like/', views.b_like, name='b_like'),
-    path('createComment/', views.c_create, name='c_create'),
-    path('commentDelete/', views.c_delete, name='c_delete'),
+    path('createComment/', views.create_comment, name='create_comment'),
+    path('commentDelete/', views.delete_comment, name='delete_comment'),
     path('adopt/', TemplateView.as_view(template_name='adopt.html'), name='adopt'),
 ]

@@ -25,15 +25,15 @@ function create_comment(){
         data: {
             board_id: $('#post_id').text(),
             comment_author: $('#c_name').val(),
-            comment_content: $('#c_content').val()
+            comment_content: $('#c_content').val(),
         },
         dataType: 'json',
         timeout: 3000,
         success: function (result){
-            let tr = $('<tr></tr>').attr('id', 'c_id')
+            let tr = $('<tr></tr>').attr('id', 'comment_'+result['c_id'])
             let author_td = $('<td></td>').text(result['c_author'])
             let content_td = $('<td></td>').text(result['c_content'])
-            let date_td = $('<td></td>').text(result['c_date'])
+            // let date_td = $('<td></td>').text(result['c_date'])
             let btn_td = $('<td></td>')
             let btn = $('<button></button>').text('삭제').addClass('btn btn-outline-danger')
             btn.on('click',function() {
@@ -58,7 +58,7 @@ function create_comment(){
             btn_td.append(btn)
             tr.append(author_td)
             tr.append(content_td)
-            tr.append(date_td)
+            // tr.append(date_td)
             tr.append(btn_td)
             $('tbody').prepend(tr)
         },
@@ -95,54 +95,6 @@ function delete_comment(id){
             }
 
 
-
-// function create_comment(){
-//     $.ajax({
-//         async: true,
-//         url: '/sun/createComment/',
-//         type: 'GET',
-//         data: {
-//             board_id: $('#post_id').text(),
-//             comment_author: $('#c_name').val(),
-//             comment_content: $('#c_content').val()
-//         },
-//         dataType: 'json',
-//         timeout:3000,
-//         success: function (result){
-//             let tr = $('<tr></tr>').attr('id', 'comment_'+result['c_id'])
-//             let author_td = $('<td></td>').text(result['c_author'])
-//             let content_td = $('<td></td>').text(result['c_content'])
-//             let btn_td = $('<td></td>')
-//             let btn = $('<button></button>').text('삭제').addClass('btn btn-outline-danger')
-//             btn.on('click', function (){
-//                 $.ajax({
-//                     async: true,
-//                     url: '/sun/commentDelete/',
-//                     type: 'GET',
-//                     data: {
-//                         comment_id: result['c_id']
-//                     },
-//                     dataType: 'json',
-//                     timeout: 3000,
-//                     success: function (){
-//                         $('#comment_'+result['c_id']).remove()
-//                     },
-//                     error: function (){
-//                         alert('Error1')
-//                     }
-//                 })
-//             })
-//             btn_td.append(btn)
-//             tr.append(author_td)
-//             tr.append(content_td)
-//             tr.append(btn_td)
-//             $('tbody').prepend(tr)
-//         },
-//         error: function (){
-//             alert('Error2')
-//         }
-//     })
-// }
 
 
 function animal_list() {
